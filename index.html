@@ -3,100 +3,244 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VUNA Calculator</title>
+  <title>VUNA Calculator - DevOps Defense</title>
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --secondary: #6c757d;
+      --success: #198754;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    .hero {
+      padding: 80px 0 40px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #212529;
+      margin-bottom: 16px;
+    }
+    
+    .hero .lead {
+      font-size: 1.25rem;
+      color: #6c757d;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+    
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-icon.blue { background: #e7f1ff; color: var(--primary); }
+    .feature-icon.green { background: #e7f6ed; color: var(--success); }
+    .feature-icon.purple { background: #f3e8ff; color: #7c3aed; }
+    
+    .btn-calc {
+      background: var(--primary);
+      color: white;
+      padding: 14px 40px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    }
+    
+    .btn-calc:hover {
+      background: #0b5ed7;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+    }
+    
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    
+    .pipeline-step .badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #6c757d;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .tech-badge {
+      background: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #495057;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+  </style>
 </head>
 <body>
-  <button class="btn btn-outline-secondary theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
-  
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-6 col-md-6 col-sm-8">
-        <div class="border border-dotted border-3 rounded-3 p-3 mb-4 bg-white bg-opacity-50">
-          <h4 class="text-center group-header mb-0">VUNA CALCULATOR</h4>
-          <p class="text-center text-small text-muted">
-            <i>Created by set 2025/26 Software Engineering</i>
-          </p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>VUNA Calculator</h1>
+      <p class="lead">
+        A stripped scientific calculator with unit converter, built with modern DevOps practices — 
+        CI/CD, automated testing, Docker containerization, and continuous deployment.
+      </p>
+      <a href="calculator.html" class="btn-calc">🚀 Launch Calculator</a>
+      
+      <div class="tech-stack">
+        <span class="tech-badge">⚡ HTML5 & CSS3</span>
+        <span class="tech-badge">🔧 JavaScript</span>
+        <span class="tech-badge">🧪 Jest Testing</span>
+        <span class="tech-badge">📦 Docker</span>
+        <span class="tech-badge">🔄 GitHub Actions</span>
+        <span class="tech-badge">☁️ FTP Deploy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon blue">🔢</div>
+            <h4>Core Calculator</h4>
+            <p class="text-muted">
+              Stripped-down arithmetic engine with addition, subtraction, multiplication, and division. 
+              No eval() — custom tokenizer and shunting-yard algorithm for safe expression evaluation.
+            </p>
+          </div>
         </div>
-        
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card calculator-card">
-              <div class="card-body p-4">
-                <div class="calculator">
-                  <!-- Display -->
-                  <div class="display-container">
-                    <input type="text" class="form-control" id="result" placeholder="0" disabled />
-                  </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon green">🔄</div>
+            <h4>Unit Converter</h4>
+            <p class="text-muted">
+              Custom feature: Convert between mass (kg, lb, oz), area (sqm, acre, ha), and 
+              data storage (GB, MB, TB, bits, bytes) with real-time results.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon purple">🚀</div>
+            <h4>CI/CD Pipeline</h4>
+            <p class="text-muted">
+              Fully automated: Lint → Test → Docker Build → FTP Deploy. 
+              Every push to main triggers the entire pipeline automatically.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                  <!-- Calculator Keypad -->
-                  <div class="btn-grid">
-                    <button class="btn btn-light" onclick="appendToResult(7)">7</button>
-                    <button class="btn btn-light" onclick="appendToResult(8)">8</button>
-                    <button class="btn btn-light" onclick="appendToResult(9)">9</button>
-                    <button class="btn btn-operator" onclick="operatorToResult('/')">÷</button>
-
-                    <button class="btn btn-light" onclick="appendToResult(4)">4</button>
-                    <button class="btn btn-light" onclick="appendToResult(5)">5</button>
-                    <button class="btn btn-light" onclick="appendToResult(6)">6</button>
-                    <button class="btn btn-operator" onclick="operatorToResult('*')">×</button>
-
-                    <button class="btn btn-light" onclick="appendToResult(1)">1</button>
-                    <button class="btn btn-light" onclick="appendToResult(2)">2</button>
-                    <button class="btn btn-light" onclick="appendToResult(3)">3</button>
-                    <button class="btn btn-operator" onclick="operatorToResult('+')">+</button>
-
-                    <button class="btn btn-light" onclick="appendToResult('.')">.</button>
-                    <button class="btn btn-light" onclick="appendToResult(0)">0</button>
-                    <button class="btn btn-action" onclick="clearResult()">AC</button>
-                    <button class="btn btn-operator" onclick="operatorToResult('-')">−</button>
-
-                    <!-- Unit Converter Button -->
-                    <button class="btn btn-special" onclick="toggleUnitConverter()" style="grid-column: span 2;">Unit Conv</button>
-                    <button class="btn btn-equals" onclick="calculateResult()" style="grid-column: span 2;">=</button>
-                  </div>
-
-                  <!-- Unit Converter Panel (hidden by default) -->
-                  <div id="unit-converter" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px;">
-                    <h6 class="text-center mb-3">Unit Converter</h6>
-                    
-                    <div class="mb-2">
-                      <select class="form-select form-select-sm" id="conv-category" onchange="updateUnitOptions()">
-                        <option value="mass">Mass</option>
-                        <option value="area">Area</option>
-                        <option value="data">Data Storage</option>
-                      </select>
-                    </div>
-
-                    <div class="row g-2 mb-2">
-                      <div class="col-5">
-                        <input type="number" class="form-control" id="conv-value" placeholder="Value" step="any">
-                      </div>
-                      <div class="col-3">
-                        <select class="form-select form-select-sm" id="conv-from"></select>
-                      </div>
-                      <div class="col-1 text-center pt-1">→</div>
-                      <div class="col-3">
-                        <select class="form-select form-select-sm" id="conv-to"></select>
-                      </div>
-                    </div>
-
-                    <button class="btn btn-primary w-100" onclick="performUnitConversion()">Convert</button>
-                    <div id="conv-result" class="text-center mt-2 fw-bold text-primary"></div>
-                  </div>
-
-                </div>
-              </div>
+  <!-- Pipeline Section -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">DevOps Pipeline</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="pipeline-step">
+            <span class="badge bg-primary">1</span>
+            <div>
+              <strong>CI — Lint & Test</strong>
+              <p class="mb-0 text-muted small">ESLint checks code quality. Jest runs unit tests with 80%+ coverage gate.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <span class="badge bg-success">2</span>
+            <div>
+              <strong>Docker — Build & Push</strong>
+              <p class="mb-0 text-muted small">Multi-stage Dockerfile builds production image and pushes to Docker Hub registry.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <span class="badge bg-info">3</span>
+            <div>
+              <strong>Deploy — FTP to Live Server</strong>
+              <p class="mb-0 text-muted small">Static files deployed automatically to cPanel shared hosting via FTP.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script src="assets/js/bootstrap.min.js"></script>
-  <script src="src/calculator.js"></script>
-  <script src="assets/js/script.js"></script>
+  <!-- CTA Section -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h3 class="mb-4">Ready to See It in Action?</h3>
+      <a href="calculator.html" class="btn-calc">Try the Calculator →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <strong>VUNA Calculator</strong> — SEN 482 DevOps CA<br>
+        Built by Adrian Egbuna | Veritas University Software Engineering 2025/26
+      </p>
+    </div>
+  </footer>
 </body>
 </html>

@@ -4,6 +4,7 @@ rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist", { recursive: true });
 
 cpSync("index.html", "dist/index.html");
+cpSync("calculator.html", "dist/calculator.html");
 cpSync("assets", "dist/assets", { recursive: true });
 cpSync("src", "dist/src", { recursive: true });
 
