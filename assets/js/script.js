@@ -186,6 +186,11 @@ function performUnitConversion() {
 
     resultDiv.innerHTML = `${value} ${fromLabel} = <strong>${formatted}</strong> ${toLabel}`;
     resultDiv.style.color = "#0d6efd";
+
+    // ====== NEW: Display on calculator main display ======
+    currentExpression = formatted;
+    LAST_RESULT = result;
+    updateResult();
   } catch (e) {
     resultDiv.textContent = e.message;
     resultDiv.style.color = "#dc3545";
