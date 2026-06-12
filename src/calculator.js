@@ -9,14 +9,13 @@ function evaluateExpression(expr) {
   }
 
   // Tokenize: split into numbers, operators, parentheses
-  const tokens = expr.match(/(\d+\.?\d*|\+|\-|\*|\/|\(|\))/g);
+  const tokens = expr.match(/(\d+\.?\d*|[+\-*/]|\(|\))/g);
   if (!tokens) throw new Error("Invalid expression");
 
   // Shunting-yard algorithm to convert to RPN
   const output = [];
   const operators = [];
   const precedence = { "+": 1, "-": 1, "*": 2, "/": 2 };
-  const isLeftAssoc = { "+": true, "-": true, "*": true, "/": true };
 
   for (const token of tokens) {
     if (/^\d+\.?\d*$/.test(token)) {

@@ -29,6 +29,7 @@ module.exports = [
         describe: "readonly",
         it: "readonly",
         expect: "readonly",
+        Option: "readonly",
       },
     },
     rules: {
