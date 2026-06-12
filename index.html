@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VUNA Calculator - DevOps Defense</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --secondary: #6c757d;
+      --success: #198754;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    .hero {
+      padding: 80px 0 40px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #212529;
+      margin-bottom: 16px;
+    }
+    
+    .hero .lead {
+      font-size: 1.25rem;
+      color: #6c757d;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+    
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-icon.blue { background: #e7f1ff; color: var(--primary); }
+    .feature-icon.green { background: #e7f6ed; color: var(--success); }
+    .feature-icon.purple { background: #f3e8ff; color: #7c3aed; }
+    
+    .btn-calc {
+      background: var(--primary);
+      color: white;
+      padding: 14px 40px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    }
+    
+    .btn-calc:hover {
+      background: #0b5ed7;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+    }
+    
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    
+    .pipeline-step .badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #6c757d;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .tech-badge {
+      background: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #495057;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>VUNA Calculator</h1>
+      <p class="lead">
+        A stripped scientific calculator with unit converter, built with modern DevOps practices — 
+        CI/CD, automated testing, Docker containerization, and continuous deployment.
+      </p>
+      <a href="calculator.html" class="btn-calc">🚀 Launch Calculator</a>
+      
+      <div class="tech-stack">
+        <span class="tech-badge">⚡ HTML5 & CSS3</span>
+        <span class="tech-badge">🔧 JavaScript</span>
+        <span class="tech-badge">🧪 Jest Testing</span>
+        <span class="tech-badge">📦 Docker</span>
+        <span class="tech-badge">🔄 GitHub Actions</span>
+        <span class="tech-badge">☁️ FTP Deploy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon blue">🔢</div>
+            <h4>Core Calculator</h4>
+            <p class="text-muted">
+              Stripped-down arithmetic engine with addition, subtraction, multiplication, and division. 
+              No eval() — custom tokenizer and shunting-yard algorithm for safe expression evaluation.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon green">🔄</div>
+            <h4>Unit Converter</h4>
+            <p class="text-muted">
+              Custom feature: Convert between mass (kg, lb, oz), area (sqm, acre, ha), and 
+              data storage (GB, MB, TB, bits, bytes) with real-time results.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <div class="feature-icon purple">🚀</div>
+            <h4>CI/CD Pipeline</h4>
+            <p class="text-muted">
+              Fully automated: Lint → Test → Docker Build → FTP Deploy. 
+              Every push to main triggers the entire pipeline automatically.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline Section -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">DevOps Pipeline</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="pipeline-step">
+            <span class="badge bg-primary">1</span>
+            <div>
+              <strong>CI — Lint & Test</strong>
+              <p class="mb-0 text-muted small">ESLint checks code quality. Jest runs unit tests with 80%+ coverage gate.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <span class="badge bg-success">2</span>
+            <div>
+              <strong>Docker — Build & Push</strong>
+              <p class="mb-0 text-muted small">Multi-stage Dockerfile builds production image and pushes to Docker Hub registry.</p>
+            </div>
+          </div>
+          <div class="pipeline-step">
+            <span class="badge bg-info">3</span>
+            <div>
+              <strong>Deploy — FTP to Live Server</strong>
+              <p class="mb-0 text-muted small">Static files deployed automatically to cPanel shared hosting via FTP.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h3 class="mb-4">Ready to See It in Action?</h3>
+      <a href="calculator.html" class="btn-calc">Try the Calculator →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <strong>VUNA Calculator</strong> — SEN 482 DevOps CA<br>
+        Built by Adrian Egbuna | Veritas University Software Engineering 2025/26
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
