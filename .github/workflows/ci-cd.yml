@@ -41,8 +41,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.adrian4541 }}/vuna-calc:latest
-            ${{ secrets.adrian4541 }}/vuna-calc:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/vuna-calc:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/vuna-calc:${{ github.sha }}
 
   deploy:
     name: Deploy via FTP
@@ -51,7 +51,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: production
-      url: http://http://adrain.vudse26.cloud>
+      url: http://adrain.vudse26.cloud
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -61,8 +61,8 @@ jobs:
       - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.adrain_deploy }}
-          password: ${{ secrets.sage0817 }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./dist/
           server-dir: ./public_html/
