@@ -1,18 +1,22 @@
 "use strict";
 
-/**
- * Evaluates a mathematical expression safely (no eval)
- */
 function evaluateExpression(expr) {
   if (!expr || typeof expr !== "string") {
     throw new Error("Invalid expression");
   }
 
-  // Tokenize: split into numbers, operators, parentheses
+  // Tokenize
   const tokens = expr.match(/(\d+\.?\d*|[+\-*/]|\(|\))/g);
   if (!tokens) throw new Error("Invalid expression");
 
-  // Shunting-yard algorithm to convert to RPN
+  // Validate: check that all characters were consumed
+  const reconstructed = tokens.join("");
+  const cleanExpr = expr.replace(/\s/g, "");
+  if (reconstructed !== cleanExpr) {
+    throw new Error("Invalid expression");
+  }
+
+  // Shunting-yard to RPN
   const output = [];
   const operators = [];
   const precedence = { "+": 1, "-": 1, "*": 2, "/": 2 };
@@ -26,7 +30,8 @@ function evaluateExpression(expr) {
       while (operators.length && operators[operators.length - 1] !== "(") {
         output.push(operators.pop());
       }
-      operators.pop(); // Remove '('
+      if (operators.length === 0) throw new Error("Mismatched parentheses");
+      operators.pop();
     } else {
       while (
         operators.length &&
@@ -40,7 +45,9 @@ function evaluateExpression(expr) {
   }
 
   while (operators.length) {
-    output.push(operators.pop());
+    const op = operators.pop();
+    if (op === "(" || op === ")") throw new Error("Mismatched parentheses");
+    output.push(op);
   }
 
   // Evaluate RPN
@@ -76,10 +83,7 @@ function evaluateExpression(expr) {
   return result;
 }
 
-// ===============================
-// UNIT CONVERTER FEATURE
-// ===============================
-
+// UNIT CONVERTER
 const UNIT_RATES = {
   mass: {
     kg: 1,
@@ -112,19 +116,11 @@ const UNIT_RATES = {
   },
 };
 
-/**
- * Converts a value from one unit to another
- * @param {number} value - The value to convert
- * @param {string} from - Source unit (e.g., 'kg', 'lb', 'sqm', 'gb')
- * @param {string} to - Target unit
- * @returns {number} - Converted value
- */
 function convertUnit(value, from, to) {
   if (typeof value !== "number" || isNaN(value)) {
     throw new Error("Value must be a valid number");
   }
 
-  // Find which category the units belong to
   let category = null;
   for (const [cat, units] of Object.entries(UNIT_RATES)) {
     if (units[from] !== undefined && units[to] !== undefined) {
@@ -137,14 +133,11 @@ function convertUnit(value, from, to) {
     throw new Error(`Incompatible units: ${from} and ${to}`);
   }
 
-  // Convert: value * fromRate / toRate
   const fromRate = UNIT_RATES[category][from];
   const toRate = UNIT_RATES[category][to];
-
   return (value * fromRate) / toRate;
 }
 
-// Export for Node.js (tests)
 if (typeof module !== "undefined" && module.exports) {
   module.exports = { evaluateExpression, convertUnit };
 }
