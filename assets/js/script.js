@@ -1,13 +1,12 @@
 // ===============================
-// 🧠 SMART RESULT MEMORY FEATURE
+// CALCULATOR STATE
 // ===============================
-
+let currentExpression = "";
 let LAST_RESULT = 0;
-var currentExpression = "";
 
-// ------------------------------
-// Theme Toggle Logic
-// ------------------------------
+// ===============================
+// THEME TOGGLE
+// ===============================
 function toggleTheme() {
   const body = document.body;
   const btn = document.getElementById("theme-toggle");
@@ -25,7 +24,6 @@ function toggleTheme() {
   }
 }
 
-// Set theme on page load from localStorage
 window.addEventListener("DOMContentLoaded", function () {
   const theme = localStorage.getItem("theme");
   const body = document.body;
@@ -41,27 +39,16 @@ window.addEventListener("DOMContentLoaded", function () {
       btn.title = "Switch to dark mode";
     }
   }
+
+  // Initialize unit converter options
+  updateUnitOptions();
 });
 
-// ------------------------------
-// Calculator State
-// ------------------------------
-let left = "";
-let operator = "";
-let right = "";
-let steps = [];
-const MAX_STEPS = 6;
-
-// ------------------------------
-// Basic Calculator Functions
-// ------------------------------
+// ===============================
+// CALCULATOR FUNCTIONS
+// ===============================
 function appendToResult(value) {
   currentExpression += value.toString();
-  updateResult();
-}
-
-function bracketToResult(value) {
-  currentExpression += value;
   updateResult();
 }
 
@@ -71,11 +58,7 @@ function backspace() {
 }
 
 function operatorToResult(value) {
-  if (value === "^") {
-    currentExpression += "**";
-  } else {
-    currentExpression += value;
-  }
+  currentExpression += value;
   updateResult();
 }
 
@@ -84,104 +67,127 @@ function clearResult() {
   updateResult();
 }
 
-
-function normalizeExpression(expr) {
-  return expr
-    .replace(/asin\(/g, "asinDeg(")
-    .replace(/acos\(/g, "acosDeg(")
-    .replace(/atan\(/g, "atanDeg(")
-    .replace(/sin\(/g, "sinDeg(")
-    .replace(/cos\(/g, "cosDeg(")
-    .replace(/tan\(/g, "tanDeg(")
-    .replace(/asinh\(/g, "asinh(")
-    .replace(/sinh\(/g, "sinh(")
-    .replace(/\be\b/g, "Math.E")
-    .replace(/\bpi\b/g, "Math.PI");
+function updateResult() {
+  const display = document.getElementById("result");
+  display.value = currentExpression || "0";
 }
 
-function percentToResult() {
-  if (!currentExpression) return;
-
-  const match = currentExpression.match(/(.+?)(\*\*|[+\-*/^])([0-9.]*)$/);
-
-  if (!match) {
-    const num = parseFloat(currentExpression);
-    if (isNaN(num)) return;
-
-    currentExpression = (num / 100).toString();
-  } else {
-    const leftPart = match[1];
-    const rightPart = match[3];
-
-    if (!rightPart) return;
-
-    let leftVal;
-
-    try {
-      leftVal = eval(leftPart);
-    } catch (e) {
-      leftVal = parseFloat(leftPart);
-    }
-
-    const rightVal = parseFloat(rightPart);
-    if (isNaN(leftVal) || isNaN(rightVal)) return;
-
-    const percentVal = (leftVal * rightVal) / 100;
-
-    currentExpression = percentVal.toString();
-  }
-
-  // 🔥 ADD THIS LINE
-  currentExpression += "*";
-
-  updateResult();
-}
-
-// ------------------------------
-// Calculate Result
-// ------------------------------
-function calculateExpression(expression) {
-  try {
-   
-    let normalizedExpression = normalizeExpression(expression);
-
-    // 🧠 Replace "ans" with last result automatically
-    normalizedExpression = normalizedExpression.replace(
-      /\bans\b/gi,
-      LAST_RESULT,
-    );
-
-    // Calculate result
-    let result = eval(normalizedExpression);
-    console.log("Calculated result for expression:", expression, "->", result);
- 
-    if (isNaN(result) || !isFinite(result)) {
-      throw new Error();
-    }
-
-    return result;
-  } catch (e) {
-    return "Error";
-  }
-}
 function calculateResult() {
   if (!currentExpression) return;
-    const display = document.getElementById("result"); 
-    // Calculate result
-    let result = calculateExpression(currentExpression);
-    result = String(result);
 
-    // Save result for future expressions
+  try {
+    // Use the evaluateExpression from calculator.js
+    const result = evaluateExpression(currentExpression);
     LAST_RESULT = result;
-
-    // Display normally
-    display.value = result;
-
-    currentExpression = result;
+    currentExpression = String(result);
     updateResult();
+  } catch (e) {
+    document.getElementById("result").value = "Error";
+    currentExpression = "";
+  }
 }
 
+// ===============================
+// UNIT CONVERTER FEATURE
+// ===============================
 
-function updateResult() {
-  document.getElementById("result").value = currentExpression || "0";
+const UNIT_LABELS = {
+  mass: {
+    kg: "Kilograms (kg)",
+    g: "Grams (g)",
+    mg: "Milligrams (mg)",
+    lb: "Pounds (lb)",
+    oz: "Ounces (oz)",
+    st: "Stones (st)",
+    t: "Tonnes (t)",
+  },
+  area: {
+    sqm: "Square Meters (m²)",
+    sqkm: "Square Kilometers (km²)",
+    sqft: "Square Feet (ft²)",
+    sqin: "Square Inches (in²)",
+    acre: "Acres",
+    ha: "Hectares (ha)",
+  },
+  data: {
+    b: "Bits (b)",
+    B: "Bytes (B)",
+    kb: "Kilobits (kb)",
+    kB: "Kilobytes (kB)",
+    mb: "Megabits (Mb)",
+    mB: "Megabytes (MB)",
+    gb: "Gigabits (Gb)",
+    gB: "Gigabytes (GB)",
+    tb: "Terabits (Tb)",
+    tB: "Terabytes (TB)",
+  },
+};
+
+function toggleUnitConverter() {
+  const panel = document.getElementById("unit-converter");
+  panel.style.display = panel.style.display === "none" ? "block" : "none";
+}
+
+function updateUnitOptions() {
+  const category = document.getElementById("conv-category").value;
+  const fromSelect = document.getElementById("conv-from");
+  const toSelect = document.getElementById("conv-to");
+
+  fromSelect.innerHTML = "";
+  toSelect.innerHTML = "";
+
+  const units = Object.keys(UNIT_LABELS[category]);
+  units.forEach((unit) => {
+    const label = UNIT_LABELS[category][unit];
+    fromSelect.add(new Option(label, unit));
+    toSelect.add(new Option(label, unit));
+  });
+
+  // Default: select different units
+  if (units.length > 1) {
+    toSelect.selectedIndex = 1;
+  }
+}
+
+function performUnitConversion() {
+  const value = parseFloat(document.getElementById("conv-value").value);
+  const from = document.getElementById("conv-from").value;
+  const to = document.getElementById("conv-to").value;
+  const resultDiv = document.getElementById("conv-result");
+
+  if (isNaN(value)) {
+    resultDiv.textContent = "Please enter a valid number";
+    resultDiv.style.color = "#dc3545";
+    return;
+  }
+
+  try {
+    const result = convertUnit(value, from, to);
+    // Format result: if very small or very large, use scientific notation
+    let formatted;
+    if (result === 0) {
+      formatted = "0";
+    } else if (result < 0.0001 || result > 1000000) {
+      formatted = result.toExponential(4);
+    } else {
+      formatted = parseFloat(result.toPrecision(6)).toString();
+    }
+
+    const fromLabel = UNIT_LABELS[
+      document.getElementById("conv-category").value
+    ][from]
+      .split("(")[0]
+      .trim();
+    const toLabel = UNIT_LABELS[document.getElementById("conv-category").value][
+      to
+    ]
+      .split("(")[0]
+      .trim();
+
+    resultDiv.innerHTML = `${value} ${fromLabel} = <strong>${formatted}</strong> ${toLabel}`;
+    resultDiv.style.color = "#0d6efd";
+  } catch (e) {
+    resultDiv.textContent = e.message;
+    resultDiv.style.color = "#dc3545";
+  }
 }
